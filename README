@@ -1,0 +1,27 @@
+Environment:
+    There's a Dockerfile that includes any dependencies needed to build.
+    VSCode can also run inside this container with the Remote Container extension.
+    > Remote-Containers: Open Folder in Container...
+
+    The following packages are required to build:
+        libgflags-dev 
+        libleveldb-dev 
+        libprotobuf-dev 
+        libprotoc-dev 
+        libssl-dev 
+
+ 
+Building:
+    git submodule update --init --recursive
+    mkdir build-brpc && cd build-brpc && cmake ../brpc && make && make install
+    mkdir build-braft && cd build-braft && cmake ../braft && make && make install
+    mkdir build-kv && cd build-kv && cmake ../kv && make && make install
+
+Running the server:
+    cd kv && ./run_server.sh
+
+Running the client:
+    cd kv && ./run_client.sh
+
+Additional flags can be found at the top of ./run_server and ./run_client
+including the ability to change consistency of get requests.
